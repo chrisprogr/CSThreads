@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { Suspense, useState, useEffect, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ProductCard } from '@/components/common/product-card'
 import { Product } from '@/types'
@@ -17,6 +17,18 @@ const SORT_OPTIONS = [
 ]
 
 export default function ShopPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="w-6 h-6 border-2 border-gray-200 border-t-[#c9a96e] rounded-full animate-spin" />
+      </div>
+    }>
+      <ShopContent />
+    </Suspense>
+  )
+}
+
+function ShopContent() {
   const searchParams = useSearchParams()
   const categoryParam = searchParams.get('category')
   const searchParam = searchParams.get('search')
